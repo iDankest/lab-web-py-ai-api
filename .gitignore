@@ -1,0 +1,14 @@
+# Entornos virtuales (El destructor de repositorios de Python)
+venv/
+.venv/
+env/
+__pycache__/
+*.pyc
+
+# Configuración local y seguridad (¡Nunca subas tus contraseñas!)
+.env
+
+# Basura del sistema operativo y del VS Code
+.DS_Store
+.vscode/
+.idea/
