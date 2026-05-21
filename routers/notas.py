@@ -9,12 +9,18 @@ router = APIRouter(
     tags=["Notas"]
 )
 
+# Simulación de base de datos (como un array global en Node)
+# En Express usarías un let db_notas = [];
+
 # Base de datos simulada para las notas
 db_notas = []
 id_contador_notas = 1
 
 @router.post("", response_model=NotaSalida, status_code=status.HTTP_201_CREATED)
 def crear_nota(nota: NotaEntrada, usuario_actual: str = Depends(obtener_usuario_actual)):
+    # Depends(obtener_usuario_actual) es como un Middleware en Express:
+    # (req, res, next) => { ... validar JWT y poner el usuario en req.user }
+    
     global id_contador_notas
     
     nueva_nota = {

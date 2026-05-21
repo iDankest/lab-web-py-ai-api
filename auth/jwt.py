@@ -6,6 +6,8 @@ from jose import jwt, JWTError
 from passlib.context import CryptContext
 from config import settings
 
+# Configuración de encriptación (Como usar la librería 'bcrypt' en Node)
+
 # Configuración de Passlib para encriptar contraseñas
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -26,9 +28,12 @@ def crear_token_acceso(datos: dict, expires_delta: Optional[timedelta] = None) -
     token_jwt = jwt.encode(datos_a_encriptar, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
     return token_jwt
 
+# Esta línea configura la extracción del token del header "Authorization: Bearer <TOKEN>"
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="auth/login")
 
 def obtener_usuario_actual(token: str = Depends(oauth2_scheme)) -> str:
+    # Esta es nuestra función "Middleware". 
+    # Si falla, lanza un 401 automático, igual que un middleware de Passport o JWT en Express.
     credenciales_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="No se pudieron validar las credenciales",

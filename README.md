@@ -50,6 +50,7 @@ lab-web-py-ai-api/
 ## Dominio: sistema de notas con búsqueda IA
 
 Los usuarios pueden crear notas de texto. La API expone endpoints para que un agente de IA pueda:
+
 - Consultar el historial de notas de un usuario
 - Buscar notas por contenido
 - Chat con contexto de las notas del usuario
@@ -58,20 +59,23 @@ Los usuarios pueden crear notas de texto. La API expone endpoints para que un ag
 
 ## Requisitos obligatorios
 
-### Autenticación
-- [ ] `POST /auth/registro` — registro de usuario
-- [ ] `POST /auth/login` — devuelve JWT
-- [ ] Middleware que verifica JWT en rutas protegidas
+### Autenticación ✅
 
-### CRUD de notas (protegido)
-- [ ] `GET /notas` — listar notas del usuario autenticado (con `?buscar=` para filtrar por texto)
-- [ ] `GET /notas/{id}` — obtener una nota (solo si es del usuario)
-- [ ] `POST /notas` — crear nota
-- [ ] `PUT /notas/{id}` — editar nota
-- [ ] `DELETE /notas/{id}` — eliminar nota
+- [x] `POST /auth/registro` — registro de usuario
+- [x] `POST /auth/login` — devuelve JWT
+- [x] Middleware que verifica JWT en rutas protegidas
+
+### CRUD de notas (Protegido) ✅
+
+- [x] `GET /notas` — listar notas del usuario autenticado (con `?buscar=` para filtrar por texto)
+- [x] `GET /notas/{id}` — obtener una nota (solo si es del usuario)
+- [x] `POST /notas` — crear nota
+- [x] `PUT /notas/{id}` — editar nota
+- [x] `DELETE /notas/{id}` — eliminar nota
 
 ### Endpoints IA
-- [ ] `POST /api/chat` — chat con historial por sesión
+
+- [ ] `POST /api/chat` — chat con historial por sesión (Pendiente)
 - [ ] `GET /api/chat/history/{session_id}` — historial
 - [ ] `GET /api/search?q=` — busca en las notas del usuario autenticado
 - [ ] `GET /api/context` — describe capacidades de la API
@@ -83,3 +87,11 @@ Los usuarios pueden crear notas de texto. La API expone endpoints para que un ag
 - Logging estructurado en JSON para todas las peticiones a `/api/`
 - `GET /api/context` incluye el número de notas del usuario autenticado
 - Endpoint `POST /api/resumir/{nota_id}` que devuelve una simulación de resumen IA
+
+---
+
+## Cómo ejecutar
+
+```bash
+uvicorn main:app --reload
+```

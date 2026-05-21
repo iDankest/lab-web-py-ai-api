@@ -1,24 +1,21 @@
 from fastapi import FastAPI
-from config import settings
+from routers import auth, notas, ia
 
-from routers import auth, notas
+# Equivale a: const app = express();
+app = FastAPI(
+    title="API de Notas con IA",
+    description="Laboratorio de Ironhack - W9",
+    version="1.0.0"
+)
 
-# Inicializamos FastAPI con el título del laboratorio
-app = FastAPI(title="API IA-Ready con Autenticación")
-
-# Conectamos el router de autenticación
+# Equivale a: app.use('/auth', authRouter);
+# Aquí centralizamos todas las rutas definidas en la carpeta routers
 app.include_router(auth.router)
 app.include_router(notas.router)
-
+app.include_router(ia.router)
 
 @app.get("/")
-def home():
+def read_root():
     return {
-        "message": "Bienvenido a la API IA-Ready de Kilian",
-        "docs": "/docs"
+        "message": "Bienvenido a la API de Notas. Ve a /docs para ver la documentación."
     }
-
-# Código para poder arrancar el archivo directamente con 'python main.py' si quieres
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run("main:app", host="0.0.0.0", port=int(settings.PORT), reload=True)
